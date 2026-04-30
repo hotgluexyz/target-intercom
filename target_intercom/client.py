@@ -3,8 +3,8 @@
 from hotglue_etl_exceptions import InvalidCredentialsError, InvalidPayloadError
 from hotglue_singer_sdk.target_sdk.client import HotglueSink
 
-DEFAULT_API_BASE_URL = "https://api.intercom.io"
-DEFAULT_INTERCOM_VERSION = "2.14"
+# DEFAULT_API_BASE_URL = "https://api.intercom.io"
+# DEFAULT_INTERCOM_VERSION = "2.14"
 
 
 class IntercomSink(HotglueSink):
@@ -16,7 +16,7 @@ class IntercomSink(HotglueSink):
 
     @property
     def base_url(self) -> str:
-        return str(self.config.get("api_base_url", DEFAULT_API_BASE_URL)).rstrip("/")
+        return str(self.config["api_base_url"]).rstrip("/")
 
     @property
     def endpoint(self) -> str:
@@ -28,9 +28,7 @@ class IntercomSink(HotglueSink):
             "Accept": "application/json",
             "Content-Type": "application/json",
             "Authorization": f"Bearer {self.config['access_token']}",
-            "Intercom-Version": str(
-                self.config.get("intercom_version", DEFAULT_INTERCOM_VERSION)
-            ),
+            "Intercom-Version": str(self.config["intercom_version"]),
         }
         user_agent = self.config.get("user_agent")
         if user_agent:
