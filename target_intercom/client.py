@@ -3,9 +3,6 @@
 from hotglue_etl_exceptions import InvalidCredentialsError, InvalidPayloadError
 from hotglue_singer_sdk.target_sdk.client import HotglueSink
 
-# DEFAULT_API_BASE_URL = "https://api.intercom.io"
-# DEFAULT_INTERCOM_VERSION = "2.14"
-
 
 class IntercomSink(HotglueSink):
     """Base sink for Intercom passthrough write streams."""
