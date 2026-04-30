@@ -1,6 +1,5 @@
 """REST client helpers for Intercom writes."""
 
-import requests
 from hotglue_etl_exceptions import InvalidCredentialsError, InvalidPayloadError
 from hotglue_singer_sdk.target_sdk.client import HotglueSink
 
@@ -11,11 +10,17 @@ DEFAULT_INTERCOM_VERSION = "2.14"
 class IntercomSink(HotglueSink):
     """Base sink for Intercom passthrough write streams."""
 
-    endpoint = ""
+    @property
+    def name(self) -> str:
+        return self.stream_name
 
     @property
     def base_url(self) -> str:
         return str(self.config.get("api_base_url", DEFAULT_API_BASE_URL)).rstrip("/")
+
+    @property
+    def endpoint(self) -> str:
+        return f"/{self.stream_name}"
 
     @property
     def http_headers(self) -> dict:
@@ -33,9 +38,9 @@ class IntercomSink(HotglueSink):
         return headers
     
     def preprocess_record(self, record: dict, context: dict) -> dict:
-        return dict(record)
+        return record
 
-    def validate_response(self, response: requests.Response) -> None:
+    def validate_response(self, response) -> None:
         if response.status_code in (401, 403):
             raise InvalidCredentialsError(
                 f"Invalid credentials/permissions for Intercom API: {response.text}"

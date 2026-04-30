@@ -4,11 +4,4 @@ from target_intercom.client import IntercomSink
 
 
 class FallbackSink(IntercomSink):
-    
-    @property
-    def name(self) -> str:
-        return self.stream_name
-    
-    @property
-    def endpoint(self) -> str:
-        return f"/{self.stream_name}"
+    pass
