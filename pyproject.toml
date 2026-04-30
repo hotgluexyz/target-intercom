@@ -7,13 +7,13 @@ authors = ["Hotglue <hello@hotglue.io>"]
 license = "Apache-2.0"
 
 [tool.poetry.dependencies]
-python = "<3.12,>=3.8"
-hotglue-singer-sdk = "^1.0.3"
+python = ">=3.8,<3.11"
+hotglue-singer-sdk = "^1.0.11"
 requests = "^2.31.0"
 hotglue-etl-exceptions = "^0.1.0"
 
 [tool.poetry.group.dev.dependencies]
-pytest = "^8.0.0"
+ruff = "^0.6.0"
 
 [build-system]
 requires = ["poetry-core>=1.0.8"]

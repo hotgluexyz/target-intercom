@@ -1,7 +1,5 @@
 """REST client helpers for Intercom writes."""
 
-from __future__ import annotations
-
 import requests
 from hotglue_etl_exceptions import InvalidCredentialsError, InvalidPayloadError
 from hotglue_singer_sdk.target_sdk.client import HotglueSink
@@ -16,11 +14,11 @@ class IntercomSink(HotglueSink):
     endpoint = ""
 
     @property
-    def url_base(self) -> str:
+    def base_url(self) -> str:
         return str(self.config.get("api_base_url", DEFAULT_API_BASE_URL)).rstrip("/")
 
     @property
-    def http_headers(self) -> dict[str, str]:
+    def http_headers(self) -> dict:
         headers = {
             "Accept": "application/json",
             "Content-Type": "application/json",
@@ -33,13 +31,9 @@ class IntercomSink(HotglueSink):
         if user_agent:
             headers["User-Agent"] = str(user_agent)
         return headers
-
-    def preprocess_record(self, record: dict, context: dict | None) -> dict:
-        return dict(record)
     
-    def url(self, endpoint: str | None = None) -> str:
-        path = self.endpoint if endpoint is None else endpoint
-        return f"{self.url_base}/{str(path).lstrip('/')}"
+    def preprocess_record(self, record: dict, context: dict) -> dict:
+        return dict(record)
 
     def validate_response(self, response: requests.Response) -> None:
         if response.status_code in (401, 403):

@@ -1,7 +1,5 @@
 """Sink definitions for target-intercom."""
 
-from __future__ import annotations
-
 from target_intercom.client import IntercomSink
 
 

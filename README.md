@@ -68,10 +68,19 @@ In practice:
 - `Invalid Credentials` means the token is invalid or lacks required Intercom permissions.
 - `Invalid Payload` means the record body does not match what that Intercom endpoint accepts, or references missing entities.
 
-## Run locally
+## Development
+
+### Setup Development Environment
+
+Use Python `3.8`-`3.10` for this project
 
 ```bash
+# Install dependencies
 poetry install
-poetry run pytest
-poetry run target-intercom --about
+
+# Run linting
+poetry run ruff check .
+
+# Test CLI
+poetry run target-intercom --help
 ```
