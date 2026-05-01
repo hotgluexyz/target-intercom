@@ -1,0 +1,22 @@
+[tool.poetry]
+name = "target-intercom"
+version = "0.1.0"
+description = "`target-intercom` is a Singer target for Intercom passthrough writes."
+readme = "README.md"
+authors = ["Hotglue <hello@hotglue.io>"]
+license = "Apache-2.0"
+
+[tool.poetry.dependencies]
+python = ">=3.8,<3.11"
+hotglue-singer-sdk = "^1.0.11"
+hotglue-etl-exceptions = "^0.1.0"
+
+[tool.poetry.group.dev.dependencies]
+ruff = "^0.6.0"
+
+[build-system]
+requires = ["poetry-core>=1.0.8"]
+build-backend = "poetry.core.masonry.api"
+
+[tool.poetry.scripts]
+target-intercom = "target_intercom.target:TargetIntercom.cli"
